@@ -2,54 +2,84 @@
 
 namespace App\Http;
 
-use App\Controller\Home;
+use App\Http\Exception\HttpExeption;
 use App\Http\RouterController;
 use ReflectionFunction;
-use ReflectionObject;
+
 
 class Router extends RouterController{
 
+    /**
+     *  MÉTODO RESPONSÁVEL POR MANDAR OS PARAMENTOS PARA O CONTROLADOR
+     * 
+     */
     private function addRouter($method, $route, $paramets)
     {
         $this->controller($method, $route,$paramets);
     }
+
+    /**
+     * MÉTODO PESPONSÁVEL POR PEGAR ROTA E CALLBACK
+     */
+
     public function get($route, $paramets)
     {
         $this->addRouter("GET", $route, $paramets);
     }
 
+    /**
+     * MÉTODO RESPONSÁVEL POR EXECUTAR A ROTA
+     */
     public function run()
     {
+
         $exec = $this->buildRouter();
-    
-        if(is_object($exec['controller'])){
-             $this->objectCall($exec);
-        }else{
-             $this->funcCall($exec);
+        // CHECA SE CONTROLLER É UMA FUNÇÃO ANONIMA OU UMA MÉTODO
+        if($exec["controller"] instanceof \Closure){
+            return $this->funcCall($exec);
+        }else if(!empty($exec["controller"])){
+            return $this->objectCall($exec);
         }
-
-        
         
     }
 
-    private function objectCall($calleble)
+    /**
+     * @return Method
+     * Executa um methodo de uma class
+     */
+    
+    private function objectCall($callable)
     {
         
-        $class = $calleble['controller'];
-        $method = $calleble['function'] ?? '';
-        
+        $class = $callable['controller'];
+        $method = $callable['function'] ?? '';
+       
         return call_user_func_array(
-            array((object)$class, (string) $method), [$calleble["variables"]]
+            array((object)$class, (string) $method), [$callable["request"], $callable["variables"]]
         );
+
     }
-    private function funcCall($calleble)
+
+    /**
+     * Executa um callback
+     * @return \Closure
+     */
+    private function funcCall($callable)
     {
+
+        // ADICIONA REQUEST NA VARIAVEL
+        $callable["variables"]["request"] = $callable["request"];
+        // REMOVE REQUEST
+        unset($callable["request"]);
+
         $args = [];
-        $buildParamets = new ReflectionFunction($calleble['controller']);
+        $buildParamets = new ReflectionFunction($callable['controller']);
         foreach ($buildParamets->getParameters() as $paramet) {
             $name  = $paramet->getName();
-            $args[] = $calleble["variables"][$name];
+            $args[] = $callable["variables"][$name];
         }
-        return call_user_func_array($calleble["controller"], $args);
+        
+        return call_user_func_array($callable["controller"], $args);
+
     }
 }

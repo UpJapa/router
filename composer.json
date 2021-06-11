@@ -1,0 +1,8 @@
+{
+    "name": "web/app",
+    "autoload": {
+        "psr-4": {
+            "App\\":"app\\"
+        }
+    }
+}

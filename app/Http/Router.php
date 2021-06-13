@@ -33,13 +33,22 @@ class Router extends RouterController{
     public function run()
     {
 
-        $exec = $this->buildRouter();
-        // CHECA SE CONTROLLER É UMA FUNÇÃO ANONIMA OU UMA MÉTODO
-        if($exec["controller"] instanceof \Closure){
-            return $this->funcCall($exec);
-        }else if(!empty($exec["controller"])){
-            return $this->objectCall($exec);
+        try {
+            $exec = $this->buildRouter();
+            // CHECA SE CONTROLLER É UMA FUNÇÃO ANONIMA OU UMA MÉTODO
+            if($exec["controller"] instanceof \Closure){
+                return $this->funcCall($exec);
+            }else if(!empty($exec["controller"])){
+                return $this->objectCall($exec);
+            }else{
+               throw new HttpExeption("Erro na callable", 588);
+            }
+
+        } catch (HttpExeption $th) {
+            return new Response($th->getCode(), $th->getMessage());
         }
+        
+        
         
     }
 

@@ -12,8 +12,8 @@ class Tpl extends TplController{
 
     /**
      * @param $fileHtml
-     * @param $folder #caso não será passado, seu valor padrão é ./view 
-     * $param $ext #caso não será passado, seu valor padrão é html 
+     * @param $folder #se não passar, seu valor padrão é ./view 
+     * $param $ext #se não passar, seu valor padrão é html 
      */
     public function __construct($fileHtml, $folder = __DIR__ . "/../../../view", $ext = "html")
     {
@@ -34,9 +34,12 @@ class Tpl extends TplController{
     {
         
         $this->vars = $vars;
+        // CRIA AS VARIAVEIS
         $this->replaceVariables();
+        // CRIA OS REPLACES DE ARRAYS
         $this->replaceArray();
-
+        // CRIA O FOREACH PARA O LOOP
+        $this->replaceLoop();
     }
 
     /**

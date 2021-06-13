@@ -8,6 +8,10 @@
 </head>
 <body>
     <?=$titulo;?> </br>
-    <?=$array["nome"];?>
+    <?php if(isset($loop)) 
+                foreach($loop as $key => $value){ ?>
+    <?=$value["id"];?>
+    <?php } ?> 
+
 </body>
 </html>

@@ -12,12 +12,11 @@ class Home{
     public function getControlle(Request $request, $args = []){
         
         $tpl = new Tpl("frontend/home");
-        
+        $sql = new Mysql();
+        $results = $sql->select("SELECT * FROM tb_clients");
         $tpl->assign([
             "titulo" => "HOME | PAGE",
-            "array"   => [
-                "nome" => "vitor"
-            ]
+            "loop"  =>  $results
         ]); 
 
         return new Response(200, $tpl->init());

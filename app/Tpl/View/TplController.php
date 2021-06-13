@@ -4,10 +4,32 @@ namespace App\Tpl\View;
 
 abstract class TplController{
 
+    /**
+     * @var string
+     * armazena nome da pasta
+     */
     private $folder;
+    /**
+     * @var string
+     * armazena nome do arquivo
+     */
     private $file;
+
+    /**
+     * @var string
+     * armazena nome da extensão do arquivo
+     */
     protected $ext;
+    /**
+     * @var string
+     * armazena todo o conteúdo para gerar cache
+     */
     protected $context;
+
+    /**
+     * @var array
+     * Armazena todas as variaveis para extrair no cache
+     */
     protected $vars = [];
 
 
@@ -77,7 +99,6 @@ abstract class TplController{
 
             // cria uma espressão, para veriifica se existe 
             // {{chave.valor}}
-
             $matches = self::verifyExpress('/{{(.*?)\.(.*?)\}}/', $this->context);
 
             // combina chave e o valor encontrado na espressão regular 
@@ -94,6 +115,25 @@ abstract class TplController{
         }
     }
 
+    /**
+     * método responsável por gerar o foreache
+     */
+
+     protected function replaceLoop()
+     {
+
+        if(in_array("array" , array_map("gettype", $this->vars))){
+            // cria uma espressão, para localizar um loop no html
+            $matches = self::verifyExpress("/{{loop=(.*?)}}/", $this->context);
+            $loop = array_map(function($values){
+                return '<?php if(isset($'.$values.')) 
+                foreach($'.$values.' as $key => $value){ ?>';
+            }, $matches[1]);
+
+            $this->context = str_replace($matches[0], $loop, $this->context);
+            $this->context = str_replace("{{/loop}}", "<?php } ?> \n\r", $this->context);
+        }
+     }
 
     /**
      * ESPRESSÃO REGULAR

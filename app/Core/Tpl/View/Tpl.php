@@ -40,6 +40,8 @@ class Tpl extends TplController{
         $this->replaceArray();
         // CRIA O FOREACH PARA O LOOP
         $this->replaceLoop();
+        // CRIA AS FUNÇÕES
+        $this->replaceFunction();
     }
 
     /**

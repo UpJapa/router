@@ -135,6 +135,25 @@ abstract class TplController{
         }
      }
 
+     protected function replaceFunction()
+     {
+
+        
+        // cria uma espressão, para localizar um loop no html
+        $matches = self::verifyExpress("/{{function=(.*?)}}/", $this->context);
+        
+        $callfunction = array_map(function($values){
+            return '
+            <?php 
+            if(function_exists("'.$values.'")) {
+            echo '.$values.'();}
+            ?>';
+        }, $matches[1]);
+
+        $this->context = str_replace($matches[0], $callfunction, $this->context);
+        
+     }
+
     /**
      * ESPRESSÃO REGULAR
      * @param $patters

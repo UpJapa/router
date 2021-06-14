@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tpl\View;
+namespace App\Core\Tpl\View;
 
-use App\Tpl\Cache\Cache;
+use App\Core\Tpl\Cache\Cache;
 
 class Tpl extends TplController{
 
@@ -15,7 +15,7 @@ class Tpl extends TplController{
      * @param $folder #se não passar, seu valor padrão é ./view 
      * $param $ext #se não passar, seu valor padrão é html 
      */
-    public function __construct($fileHtml, $folder = __DIR__ . "/../../../view", $ext = "html")
+    public function __construct($fileHtml, $folder = __DIR__ . "/../../../../view", $ext = "html")
     {
 
         parent::__construct($folder, $ext);

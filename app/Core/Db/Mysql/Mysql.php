@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Db\mysql;
+namespace App\Core\Db\mysql;
 
+use App\Core\Exception\ErrorException;
 use PDO;
 
 class Mysql extends PDO{
@@ -28,7 +29,7 @@ class Mysql extends PDO{
             $this->conn = new PDO($dns, $user, $pass, array('charset'=>'utf8'));
             $this->conn->query("SET CHARACTER SET utf8");
         } catch (\PDOException $pdo) {
-            echo $pdo->getMessage();
+            ErrorException::sendError();
         }
         
     }

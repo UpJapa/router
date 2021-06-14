@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http;
+namespace App\Core\Http;
 
-use App\Http\Exception\HttpException;
-use App\Http\RouterController;
+use App\Core\Exception\ErrorException;
+use App\Core\Http\Exception\HttpException;
+use App\Core\Http\RouterController;
 use ReflectionFunction;
 
 
@@ -42,7 +43,7 @@ class Router extends RouterController{
                 return $this->objectCall($exec);
             }
         } catch (HttpException $th) {
-            return new Response($th->getCode(), $th->getMessage());
+            return new Response($th->getCode(), ErrorException::sendError());
         }
         
         

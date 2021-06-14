@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tpl\View;
+namespace App\Core\Tpl\View;
 
 abstract class TplController{
 

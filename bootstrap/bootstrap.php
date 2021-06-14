@@ -1,6 +1,7 @@
 <?php
 
-use App\Env\Variebles;
+use App\Core\Env\Variebles;
+use App\Core\Exception\ErrorException;
 
 try {
     
@@ -12,5 +13,5 @@ try {
     error_reporting(getenv("ERROR"));
 } catch (\Throwable $th) {
     ## mensagem de erro
-    echo $th->getMessage();
+    ErrorException::sendError();
 }

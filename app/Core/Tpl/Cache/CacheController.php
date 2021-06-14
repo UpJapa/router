@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tpl\Cache;
+namespace App\Core\Tpl\Cache;
 
 abstract class CacheController{
 

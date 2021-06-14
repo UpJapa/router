@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Tpl\Cache;
+namespace App\Core\Tpl\Cache;
 
+use App\Core\Exception\ErrorException;
 use App\Tpl\Cache\Exception\CacheException;
 
 class Cache extends CacheController{
@@ -11,7 +12,7 @@ class Cache extends CacheController{
      * @param $folder #caso não será passado, seu valor padrão é: ./view 
      * $param $ext #caso não será passado, seu valor padrão é: php 
      */
-    public function __construct($folder =  __DIR__ . "/../../../cache", $ext = "php")
+    public function __construct($folder =  __DIR__ . "/../../../../cache", $ext = "php")
     {
         parent::__construct($folder, $ext);
     }
@@ -47,7 +48,7 @@ class Cache extends CacheController{
                 throw new CacheException("Erro ao criar o arquivo: ". $this->getFile(), 1);
             }
         } catch (CacheException $th) {
-            echo $th->getMessage();
+            ErrorException::sendError();
         }
        
     }

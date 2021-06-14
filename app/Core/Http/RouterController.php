@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http;
+namespace App\Core\Http;
 
-use App\Http\Exception\HttpException;
+use App\Core\Exception\ErrorException;
+use App\Core\Http\Exception\HttpException;
 use Closure;
 use Exception;
-use App\Http\Request;
+use App\Core\Http\Request;
 
 
 abstract class RouterController{
@@ -107,10 +108,11 @@ abstract class RouterController{
      {
 
         try {
-            $uri = rtrim($this->request->getURI(),'/');
+            $uri = strlen($this->request->getURI()) > 2 ? rtrim($this->request->getURI(),'/') : $this->request->getURI();
             $method = $this->request->getMethod();
-            foreach ($this->router as $patternRouter => $http) {
             
+            foreach ($this->router as $patternRouter => $http) {
+                
                 /** verifica se nas rotas contém a rota atual */
                 if(preg_match($patternRouter,  $uri , $match)){
     
@@ -146,7 +148,7 @@ abstract class RouterController{
             throw new HttpException("URL não encontrada", 404);
 
         } catch (HttpException $http) {
-            echo $http->getMessage();exit;
+            ErrorException::sendError();
         }
         
         

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tpl\Cache\Exception;
+namespace App\Core\Tpl\Cache\Exception;
 use \Exception;
 
 class CacheException extends Exception{

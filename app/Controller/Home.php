@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
-use App\Db\Mysql\Mysql;
-use App\Http\Request;
-use App\Http\Response;
-use App\Tpl\View\Tpl;
+use App\Core\Db\Mysql\Mysql;
+use App\Core\Http\Request;
+use App\Core\Http\Response;
+use App\Core\Tpl\View\Tpl;
 
 class Home{
 
@@ -18,7 +18,7 @@ class Home{
             "titulo" => "HOME | PAGE",
             "loop"  =>  $results
         ]); 
-        return new Response(200, $tpl->init(), "application/json");
+        return new Response(200, $tpl->init());
     }
 
 }

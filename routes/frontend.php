@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Response;
-use App\Http\Router;
+use App\Core\Http\Response;
+use App\Core\Http\Router;
 
 
 $app = new Router();

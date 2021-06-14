@@ -2,7 +2,7 @@
 
 namespace App\Http;
 
-use App\Http\Exception\HttpExeption;
+use App\Http\Exception\HttpException;
 use Closure;
 use Exception;
 use App\Http\Request;
@@ -82,13 +82,13 @@ abstract class RouterController{
 
         // VERIFICA NA ROTA PASSADA TEM ALGUMA VARIAVEL //
         if(preg_match_all($patern, $route, $matches)){
-
+        
             // substitui {variavel} para (.*?) //
-
-            $route = preg_replace($patern, "(.*?)", $route);
-
+            $route = preg_replace($patern, "(.+)", $route);
+            
             // SE EXISTE UMA VARIAVEL, $matches OBTEM ELA NA POSIÇÃO 1
             $paramets['variables'] = $matches[1] ?? [];
+
         }
 
         // INVERTER AS BARRAS PARA \/ //
@@ -107,15 +107,25 @@ abstract class RouterController{
      {
 
         try {
-            $uri = $this->request->getURI();
+            $uri = rtrim($this->request->getURI(),'/');
             $method = $this->request->getMethod();
             foreach ($this->router as $patternRouter => $http) {
             
                 /** verifica se nas rotas contém a rota atual */
                 if(preg_match($patternRouter,  $uri , $match)){
-                    
+    
                     // exclui primeira posição
                     unset($match[0]);
+
+                    # VERIFICA SE NA VARIAVEL É PASSADO UMA BARRA
+                    $separetorURL = explode("/", $match[1]);
+                    
+                    // SE FOR MAIOR QUE 1 GERA UM NOVA EXEPTION
+                    if(count($separetorURL) > 1){
+                        throw new HttpException("URL não encontrada", 1);
+                    }
+                    
+                    
                     // checa se na metodo é o mesmo do $method
                     if(isset($http[$method])){
 
@@ -129,14 +139,14 @@ abstract class RouterController{
                         // retorna callback
                         return $http[$method];
                     }
-                    throw new HttpExeption("Método não encontrado", 405);
+                    throw new HttpException("Método não encontrado", 405);
                 }
             }
 
-            throw new HttpExeption("URL não encontrada", 404);
+            throw new HttpException("URL não encontrada", 404);
 
-        } catch (HttpExeption $http) {
-            echo $http->getMessage();
+        } catch (HttpException $http) {
+            echo $http->getMessage();exit;
         }
         
         

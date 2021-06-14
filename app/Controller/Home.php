@@ -9,16 +9,16 @@ use App\Tpl\View\Tpl;
 
 class Home{
 
-    public function getControlle(Request $request, $args = []){
+    public function getControlle(Request $request, $args){
         
         $tpl = new Tpl("frontend/home");
         $sql = new Mysql();
-        $results = $sql->select("SELECT * FROM tb_clients");
+        $results = $sql->select("SELECT * FROM tb_depoimentos");
         $tpl->assign([
             "titulo" => "HOME | PAGE",
             "loop"  =>  $results
         ]); 
-
-        return new Response(200, $tpl->init());
+        return new Response(200, $tpl->init(), "application/json");
     }
+
 }

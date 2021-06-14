@@ -17,10 +17,10 @@ class Variebles{
     private $variebles;
 
     /**
-     * @param @env
+     * @param $env
      * espera o caminho completo do arquivo .env
      */
-    public function __construct($env = __DIR__ ."/../../.env")
+    public function __construct($env = __DIR__ . "/../../.env")
     {
         $this->env = $env;
         $this->controllerEnv();
@@ -34,7 +34,7 @@ class Variebles{
     {
         foreach ($this->controllerEnv() as $value) {
             // verifica se existe algum comentario
-            if(preg_match("/[#]/", $value)){
+            if(preg_match_all("/^[#]/", $value)){
                 continue;
             }
             
@@ -49,7 +49,7 @@ class Variebles{
     public function execute($value)
     {
         // ADICIONA AS VARIAVES AO AMBIENTE
-        putenv($value);
+        putenv(trim($value));
     }
 
     /**

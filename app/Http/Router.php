@@ -2,7 +2,7 @@
 
 namespace App\Http;
 
-use App\Http\Exception\HttpExeption;
+use App\Http\Exception\HttpException;
 use App\Http\RouterController;
 use ReflectionFunction;
 
@@ -40,11 +40,8 @@ class Router extends RouterController{
                 return $this->funcCall($exec);
             }else if(!empty($exec["controller"])){
                 return $this->objectCall($exec);
-            }else{
-               throw new HttpExeption("Erro na callable", 588);
             }
-
-        } catch (HttpExeption $th) {
+        } catch (HttpException $th) {
             return new Response($th->getCode(), $th->getMessage());
         }
         

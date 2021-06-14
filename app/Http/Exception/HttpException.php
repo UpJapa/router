@@ -4,4 +4,4 @@ namespace App\Http\Exception;
 
 use Exception;
 
-class HttpExeption extends Exception{}
+class HttpException extends Exception{}

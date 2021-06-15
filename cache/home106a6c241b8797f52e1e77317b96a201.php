@@ -10,8 +10,9 @@
     <?=$titulo;?> </br>
     <?php if(isset($loop)) 
                 foreach($loop as $key => $value){ ?>
-    <?=$value["id"];?>
+    <?=$value["nome"];?>
     <?php } ?> 
-
+
+
 </body>
 </html>

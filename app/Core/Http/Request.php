@@ -38,8 +38,9 @@ class Request{
         $this->header = getallheaders();
         $this->queryString = $_GET ?? [];
         $this->post = $_POST ?? [];
-        $this->uri = $_SERVER['REQUEST_URI'];
-        $this->method = $_SERVER['REQUEST_METHOD'];
+        $this->uri = $_SERVER['REQUEST_URI'] ?? '';
+        $this->method = $_SERVER['REQUEST_METHOD'] ?? '';
+        
     }
     /**
      * Retorna os dados passado pela URL via $_GET 
@@ -58,7 +59,7 @@ class Request{
      */
     public function getQueryString():array
     {
-        return $this->post;
+        return $this->queryString;
     }
 
     /**
@@ -78,7 +79,7 @@ class Request{
      */
     public function getURI():string
     {
-        return $this->uri;
+        return  parse_url($this->uri, PHP_URL_PATH) ?? $_SERVER['REQUEST_URI'];
     }
 
     /**

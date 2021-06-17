@@ -8,7 +8,7 @@ class Tpl extends TplController{
 
     private $html;
     private $cache;
-    
+    private static $_glob = [];
 
     /**
      * @param $fileHtml
@@ -27,6 +27,16 @@ class Tpl extends TplController{
     }
 
     /**
+     *  Adiciona na class as variaveis
+     *
+     * @param array $vars
+     */
+    public static function setVars($vars)
+    {
+        self::$_glob = $vars;
+    }
+
+    /**
      * @param $vars array variaveis do html
      * método responsável por criar as variaves no cache
      */
@@ -34,6 +44,10 @@ class Tpl extends TplController{
     {
         
         $this->vars = $vars;
+
+        // add $_glob no final
+        $this->vars = array_merge($this->vars, self::$_glob);
+        
         // CRIA AS VARIAVEIS
         $this->replaceVariables();
         // CRIA OS REPLACES DE ARRAYS

@@ -8,11 +8,6 @@
 </head>
 <body>
     <?=$titulo;?> </br>
-    <?php if(isset($loop)) 
-                foreach($loop as $key => $value){ ?>
-    <?=$value["nome"];?>
-    <?php } ?> 
-
-
+    <?=$URL;?>
 </body>
 </html>

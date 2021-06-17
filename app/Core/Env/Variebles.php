@@ -20,7 +20,7 @@ class Variebles{
      * @param $env
      * espera o caminho completo do arquivo .env
      */
-    public function __construct($env = __DIR__ . "/../../../.env")
+    public function __construct($env = __DIR__ . "/../../../../.env")
     {
         $this->env = $env;
         $this->controllerEnv();

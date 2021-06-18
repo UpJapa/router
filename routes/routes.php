@@ -1,6 +1,7 @@
 <?php
 
-use App\Core\Http\Router;
+use App\Core\Http\Response;
+use App\Core\Log\Log;
 use App\Core\Tpl\View\Tpl;
 
 /**
@@ -15,7 +16,8 @@ Tpl::setVars(["URL" => "app.locahost"]);
  */
 $paths = [
     __DIR__ . '/pages/frontend/'   => "home.php",
-    __DIR__ . '/api/v1/' =>    "frontend.php"
+    __DIR__ . '/error/' =>    "error.php",
+    __DIR__ . '/api/v1/' =>    "frontend.php" 
 ];
 
 /**

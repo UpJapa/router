@@ -2,9 +2,8 @@
 
 namespace App\Core\Db\mysql;
 
-use App\Core\Exception\ErrorException;
-use App\Core\Log\Log;
 use PDO;
+use PDOException;
 
 class Mysql extends PDO{
 
@@ -25,14 +24,8 @@ class Mysql extends PDO{
         $user = getenv("USER_MYSQL");
         $pass = getenv("PASS_MYSQL");
         $dns = "mysql:host=$host;dbname=$dbname;";
-        
-        try {
-            $this->conn = new PDO($dns, $user, $pass, array('charset'=>'utf8'));
-            $this->conn->query("SET CHARACTER SET utf8");
-        } catch (\PDOException $pdo) {
-            new Log("HttpException", $pdo->getMessage(), $pdo->getCode(), $pdo->getFile());
-            ErrorException::sendError();
-        }
+        $this->conn = new PDO($dns, $user, $pass, array('charset'=>'utf8'));
+        $this->conn->query("SET CHARACTER SET utf8");
         
     }
 

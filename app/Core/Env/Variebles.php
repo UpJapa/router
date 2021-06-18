@@ -23,7 +23,6 @@ class Variebles{
     public function __construct($env = __DIR__ . "/../../../../.env")
     {
         $this->env = $env;
-        $this->controllerEnv();
         $this->setVariables();
     }
 
@@ -32,14 +31,16 @@ class Variebles{
      */
     private function setVariables()
     {
-        foreach ($this->controllerEnv() as $value) {
+        $env = $this->controllerEnv();
+
+        foreach ($env as $value) {
             // verifica se existe algum comentario
             if(preg_match_all("/^[#]/", $value)){
                 continue;
             }
-            
             $this->execute($value);
         }
+        
     }
 
     /**
@@ -67,7 +68,21 @@ class Variebles{
      */
     private function controllerEnv()
     {
-        return explode(PHP_EOL, $this->getFileEnv());
+        if($this->is_file()){
+            return explode(PHP_EOL, $this->getFileEnv());
+        }else{
+            throw new \Exception("Erro ao escrever o arquivo", 1221);
+        }
+        
+    }
+
+    /**
+     * Verifica se o arquivo existe
+     *
+     * @return boolean
+     */
+    private function is_file():bool{
+        return file_exists($this->env);
     }
 
 }

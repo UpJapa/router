@@ -148,7 +148,7 @@ abstract class RouterController{
             throw new HttpException("URL não encontrada", 404);
 
         } catch (HttpException $http) {
-            ErrorException::sendError();
+            header("Location: /404");exit;
         }
         
         

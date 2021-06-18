@@ -2,6 +2,8 @@
 
 namespace App\Core\Tpl\View;
 
+use App\Core\Tpl\Cache\Exception\CacheException;
+
 abstract class TplController{
 
     /**
@@ -62,7 +64,10 @@ abstract class TplController{
      */
     protected function getContext()
     {
-        return file_get_contents($this->getFile());
+        if(file_exists($this->getFile())){
+            return file_get_contents($this->getFile());
+        }
+        throw new CacheException("Falha ao abrir o arquivo" . $this->getFile(), 6004);
     }
 
     /**

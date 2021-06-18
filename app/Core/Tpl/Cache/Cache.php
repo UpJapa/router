@@ -44,16 +44,9 @@ class Cache extends CacheController{
     */
     public function writeCache($context)
     {
-        try {
-        
-            if(!file_put_contents($this->getFile(), $context)){
-                throw new ExceptionCacheException("Erro ao criar o arquivo: ". $this->getFile(), 1);
-            }
-        } catch (ExceptionCacheException $th) {
-            new Log("ExceptionCacheException", $th->getMessage(), $th->getCode(), $th->getFile());
-            ErrorException::sendError();
+        if(!file_put_contents($this->getFile(), $context)){
+            throw new ExceptionCacheException("Erro ao criar o arquivo: ". $this->getFile(), 1);
         }
-       
     }
 
     /**

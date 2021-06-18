@@ -1,0 +1,4 @@
+# variaveis de ambientes
+.env
+# pasta de logs
+log/*

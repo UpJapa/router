@@ -6,7 +6,7 @@ use App\Core\Http\Router;
 $app = new Router();
 
 # 1 colocando namespace::class . ":namemetodo"
-$app->get("/", App\Controller\Home::class . ":getControlle");
+$app->get("/", App\Controller\frontend\Home::class . ":getControlle");
 
 # 2 passando uma função anonima dentro de um array
 $app->get("/sobre/{nome}", [function($nome, $request){

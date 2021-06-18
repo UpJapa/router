@@ -3,6 +3,7 @@
 namespace App\Core\Db\mysql;
 
 use App\Core\Exception\ErrorException;
+use App\Core\Log\Log;
 use PDO;
 
 class Mysql extends PDO{
@@ -29,6 +30,7 @@ class Mysql extends PDO{
             $this->conn = new PDO($dns, $user, $pass, array('charset'=>'utf8'));
             $this->conn->query("SET CHARACTER SET utf8");
         } catch (\PDOException $pdo) {
+            new Log("HttpException", $pdo->getMessage(), $pdo->getCode(), $pdo->getFile());
             ErrorException::sendError();
         }
         

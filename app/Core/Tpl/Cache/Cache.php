@@ -3,7 +3,9 @@
 namespace App\Core\Tpl\Cache;
 
 use App\Core\Exception\ErrorException;
-use App\Tpl\Cache\Exception\CacheException;
+use App\Core\Log\Log;
+use App\Core\Tpl\Cache\Exception\CacheException as ExceptionCacheException;
+
 
 class Cache extends CacheController{
 
@@ -45,9 +47,10 @@ class Cache extends CacheController{
         try {
         
             if(!file_put_contents($this->getFile(), $context)){
-                throw new CacheException("Erro ao criar o arquivo: ". $this->getFile(), 1);
+                throw new ExceptionCacheException("Erro ao criar o arquivo: ". $this->getFile(), 1);
             }
-        } catch (CacheException $th) {
+        } catch (ExceptionCacheException $th) {
+            new Log("ExceptionCacheException", $th->getMessage(), $th->getCode(), $th->getFile());
             ErrorException::sendError();
         }
        

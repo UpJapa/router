@@ -7,7 +7,7 @@ use App\Core\Http\Exception\HttpException;
 use Closure;
 use Exception;
 use App\Core\Http\Request;
-
+use App\Core\Log\Log;
 
 abstract class RouterController{
 

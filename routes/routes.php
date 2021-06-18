@@ -28,4 +28,5 @@ foreach ($paths as $key => $values) {
 }
 
 // há dois modulo de chamada um callback
-$app->run()->send();
+$app->run()
+        ->send();

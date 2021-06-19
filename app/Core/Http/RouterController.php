@@ -107,7 +107,7 @@ abstract class RouterController{
      protected function buildRouter()
      {
 
-        try {
+        
             $uri = strlen($this->request->getURI()) > 2 ? rtrim($this->request->getURI(),'/') : $this->request->getURI();
             $method = $this->request->getMethod();
             
@@ -145,12 +145,7 @@ abstract class RouterController{
                 }
             }
 
-            throw new HttpException("URL não encontrada", 404);
-
-        } catch (HttpException $http) {
-            header("Location: /404");exit;
-        }
-        
+            ErrorException::notfound();
         
      }
 

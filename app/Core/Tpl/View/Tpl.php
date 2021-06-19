@@ -9,20 +9,40 @@ class Tpl extends TplController{
     private $html;
     private $cache;
     private static $_glob = [];
+    private static $config = [
+        "folder" =>    __DIR__ . "/../../../../view",
+        "ext"    =>    "html"
+    ];
 
     /**
      * @param $fileHtml
      * @param $folder #se não passar, seu valor padrão é ./view 
      * $param $ext #se não passar, seu valor padrão é html 
      */
-    public function __construct($fileHtml, $folder = __DIR__ . "/../../../../view", $ext = "html")
+    public function __construct()
     {
-
-        parent::__construct($folder, $ext);
         $this->cache    = new Cache();
-        $this->html     = $fileHtml ?? "";
-        $this->setFile($fileHtml);
-        $this->context = $this->getContext();
+        parent::__construct(Tpl::$config["tpl_dir"], Tpl::$config["ext"]);
+       
+    }
+
+    public static function configure($config)
+    {
+        Tpl::$config = $config;
+    }
+
+    /**
+     * método responsável por desenha o html
+     */
+    public function draw( $html = true )
+    {
+        
+        if($html){
+            echo $this->init();
+        }else{
+            return $this->init();
+        }
+        
         
     }
 
@@ -40,9 +60,12 @@ class Tpl extends TplController{
      * @param $vars array variaveis do html
      * método responsável por criar as variaves no cache
      */
-    public function assign($vars = [])
+    public function assign($fileHtml, $vars = [])
     {
         
+        $this->html     = $fileHtml ?? "";
+        $this->setFile($fileHtml);
+        $this->context = $this->getContext();
         $this->vars = $vars;
 
         // add $_glob no final
@@ -56,6 +79,10 @@ class Tpl extends TplController{
         $this->replaceLoop();
         // CRIA AS FUNÇÕES
         $this->replaceFunction();
+         // CRIA AS FUNÇÕES
+         $this->replaceIf();
+         // CRIA AS VARIAVEIS 
+        //$this->createVariebles(); 
     }
 
     /**
@@ -64,9 +91,11 @@ class Tpl extends TplController{
      */
     public function init()
     {
-        if($this->cache->isCache(end(explode("/",$this->html)))){
+        
+        if($this->cache->isCache($this->html)){
             $this->cache->writeCache($this->context);
         }
+        
         return $this->cache->read($this->vars);
     }
 

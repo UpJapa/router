@@ -19,6 +19,8 @@ class Cache extends CacheController{
         parent::__construct($folder, $ext);
     }
 
+    
+
     /**
      * @param $file
      * checa se $file (cache) existe e se está atualizado
@@ -29,7 +31,7 @@ class Cache extends CacheController{
     {
         
         $this->setFile($file);
-
+        
         if(!$this->verifyFile()){
             return true;
         }else if( !$this->vefiryTimeFile() ){
@@ -55,9 +57,9 @@ class Cache extends CacheController{
      */
     public function read($variebles = [])
     {
-
+        
          ob_start();
-
+        
          // EXTRAI AS VARIAVEL
          extract($variebles);
 

@@ -8,7 +8,7 @@ use App\Core\Tpl\View\Tpl;
  * Variaveis globais HTML
 */
 
-Tpl::setVars(["URL" => "app.locahost"]);
+Tpl::setVars(["URL" => "http://localhost"]);
 
 /**
  * @var array $paths
@@ -16,7 +16,7 @@ Tpl::setVars(["URL" => "app.locahost"]);
  */
 $paths = [
     __DIR__ . '/pages/frontend/'   => "home.php",
-    __DIR__ . '/error/' =>    "error.php",
+    __DIR__ . '/pages/admin/' => "home.php",
     __DIR__ . '/api/v1/' =>    "frontend.php" 
 ];
 
@@ -30,5 +30,4 @@ foreach ($paths as $key => $values) {
 }
 
 // há dois modulo de chamada um callback
-$app->run()
-        ->send();
+$app->run();

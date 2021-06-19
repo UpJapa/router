@@ -35,6 +35,6 @@ abstract class CacheController{
 
     protected function vefiryTimeFile():bool
     {
-        return filemtime($this->getFile()) > time() - 60 ? true : false;
+        return filemtime($this->getFile()) > time() - 2 ? true : false;
     }
 }

@@ -28,7 +28,7 @@ try {
 } catch (HttpException $th) {
     ## mensagem de erro
     new Log('HttpException', $th->getMessage(), $th->getCode(), $th->getFile(), $th->getLine());
-    ErrorException::sendError();
+    ErrorException::notfound();
 } catch (\PDOException $th) {
     ## mensagem de erro
     new Log('PDOException', $th->getMessage(), $th->getCode(), $th->getFile(), $th->getLine());

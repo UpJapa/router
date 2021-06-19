@@ -67,7 +67,7 @@ abstract class TplController{
         if(file_exists($this->getFile())){
             return file_get_contents($this->getFile());
         }
-        throw new CacheException("Falha ao abrir o arquivo" . $this->getFile(), 6004);
+        throw new CacheException("Falha ao abrir o arquivo " . $this->getFile(), 6004);
     }
 
     /**
@@ -156,6 +156,27 @@ abstract class TplController{
         }, $matches[1]);
 
         $this->context = str_replace($matches[0], $callfunction, $this->context);
+        
+     }
+
+     protected function replaceIf()
+     {
+        $matches = self::verifyExpress("/{{if='(.*?)'}}/", $this->context);
+        $callfunction = array_map(function($values){
+            return '
+            <?php 
+            if ('.$values.'){
+            ?> ';
+        }, $matches[1]);
+
+        $this->context = str_replace($matches[0], $callfunction, $this->context);
+        $this->context = str_replace("{{/if}}", '<?php } ?>', $this->context);
+     }
+
+     protected function createVariebles()
+     {
+        $matches = self::verifyExpress("/{(.*?)}/", $this->context);
+        var_dump($matches);
         
      }
 

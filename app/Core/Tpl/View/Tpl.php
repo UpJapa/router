@@ -82,7 +82,9 @@ class Tpl extends TplController{
          // CRIA AS FUNÇÕES
          $this->replaceIf();
          // CRIA AS VARIAVEIS 
-        //$this->createVariebles(); 
+        $this->createVariebles(); 
+        // ESCREVE AS VARIAVEIS
+        $this->echoVariebles();
     }
 
     /**

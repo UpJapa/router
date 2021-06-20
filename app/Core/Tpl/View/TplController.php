@@ -170,15 +170,37 @@ abstract class TplController{
         }, $matches[1]);
 
         $this->context = str_replace($matches[0], $callfunction, $this->context);
+        $this->context = str_replace("{{else}}", '<?php } else { ?>', $this->context);
         $this->context = str_replace("{{/if}}", '<?php } ?>', $this->context);
+       
      }
 
+     /**
+      * Transformas expressões regulares em variaveis 
+      */
      protected function createVariebles()
      {
-        $matches = self::verifyExpress("/{(.*?)}/", $this->context);
-        var_dump($matches);
+        $matches = self::verifyExpress("/{\[(.*?)\]}/", $this->context);
+        $variebles = array_map(function($value){
+            return "<?php $" . $value . "; ?>";
+        }, $matches[1]);
         
+        $this->context = str_replace($matches[0], $variebles , $this->context);
      }
+
+     /**
+      * Escreve na tela as variaveis
+      */
+     protected function echoVariebles()
+     {
+        $matches = self::verifyExpress("/\[\[(.*?)\]\]/", $this->context);
+        $variebles = array_map(function($value){
+            return "<?= $" . $value . "; ?>";
+        }, $matches[1]);
+        
+        $this->context = str_replace($matches[0], $variebles , $this->context);
+     }
+
 
     /**
      * ESPRESSÃO REGULAR

@@ -1,9 +1,7 @@
 <?php
 
 use App\Core\Http\Response;
-use App\Core\Http\Router;
 
-$app = new Router();
 
 # 1 colocando namespace::class . ":namemetodo"
 $app->get("/", App\Controller\frontend\Home::class . ":getControlle");

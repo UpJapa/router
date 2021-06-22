@@ -21,12 +21,24 @@ class Router extends RouterController{
 
     /**
      * MÉTODO PESPONSÁVEL POR PEGAR ROTA E CALLBACK
+     * ROTAS GET
      */
-
     public function get($route, $paramets)
     {
         $this->addRouter("GET", $route, $paramets);
     }
+    /**
+     * MÉTODO PESPONSÁVEL POR PEGAR ROTA E CALLBACK
+     * ROTAS POSTS
+     *
+     * @param string $route
+     * @param $paramets
+     */
+    public function post($route, $paramets)
+    {
+        $this->addRouter("POST", $route, $paramets);
+    }
+
 
     /**
      * MÉTODO RESPONSÁVEL POR EXECUTAR A ROTA

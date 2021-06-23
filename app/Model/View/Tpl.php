@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model;
+namespace App\Model\View;
 
 use App\Core\Tpl\View\Tpl as ViewTpl;
 
@@ -19,7 +19,7 @@ class Tpl{
     public function __construct(
         $folderHTMl = "frontend/",
         $opts = [],
-        $dir =  __DIR__ . "/../../view", 
+        $dir =  __DIR__ . "/../../../view", 
         $ext = "html"
     ){
 
@@ -35,7 +35,7 @@ class Tpl{
         ViewTpl::configure($config);
 
         $this->tpl = new ViewTpl();
-
+        
         if($this->defaults["header"] === true) 
         $this->setTpl($this->folderHTMl . "header",["titulo" => "Home"]);
        

@@ -1,8 +1,8 @@
 <?php 
 namespace App\Core\Exception;
 
-use App\Core\Http\Response;
-use App\Model\Tpl;
+
+use App\Model\View\Tpl;
 
 class ErrorException{
 

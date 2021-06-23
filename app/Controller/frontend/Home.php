@@ -2,15 +2,15 @@
 
 namespace App\Controller\frontend;
 
-use App\Core\Db\Mysql\Mysql;
+use App\Core\Db\Database\Database;
 use App\Core\Http\Request;
-use App\Model\Tpl;
+
+use App\Model\View\Tpl;
 
 class Home{
 
     public function getControlle(Request $request, $args){
-
-        $db = new Mysql();
+        new Database();
         $banners = [
             ["image" => "/view/images/frontend/mbuntu-11.jpg"],
             ["image" => "/view/images/frontend/mbuntu-13.jpg"],

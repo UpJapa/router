@@ -1,23 +1,19 @@
 <?php
 
-namespace App\Core\Db\Mysql;
+namespace App\Core\Db\Database;
 
+use Exception;
 use PDO;
 use PDOException;
 
-class Mysql extends PDO{
+class Database extends DatabaseController{
 
     /**
      * @var $conn
      * variavel de conexão com mysql
      */
 
-    /**
-     * obtem variaveis de conexão com mysql
-     *
-     * @var $varibles
-     */
-    private $conn, $varibles;
+    private $conn;
 
     /**
      * método responsável por criar conexão com banco de dados
@@ -26,7 +22,7 @@ class Mysql extends PDO{
     {
         // verifica se json existe
         if ($this->verifyJson() !== true) {
-           header("Location: /config");exit;
+           header("Location: /".md5('dbconfig')."");exit;
         }
         
         // pega as variaveis de ambientes
@@ -60,7 +56,12 @@ class Mysql extends PDO{
      */
     private function bindParam($stmt, $key, $value)
     {
-        $stmt->bindParam($key, $value);
+        try {
+            $stmt->bindParam($key, $value);
+        } catch (PDOException $th) {
+            throw new Exception($th->getMessage(), 3001);
+        }
+        
     }
 
     /**
@@ -75,28 +76,7 @@ class Mysql extends PDO{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);   
     }
 
-    /**
-     * Verifica se json exisre com as variaveis com banco de dados
-     *
-     * @return bool
-     */
-    private function verifyJson()
-    {
-        if (file_exists(__DIR__ . '/../config.json')) {
-           $json = file_get_contents(__DIR__ . '/../config.json');
-           $this->varibles = json_decode($json, true);
-           return $this->buildVaribles();
-        }
-        return false;
-    }
-
-    private function buildVaribles()
-    {
-        foreach ($this->varibles as $key => $value) {
-            putenv(trim("{$key}={$value}"));
-        }
-        return true;
-    }
+    
 
 
 }

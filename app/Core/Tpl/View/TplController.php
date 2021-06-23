@@ -148,11 +148,7 @@ abstract class TplController{
         $matches = self::verifyExpress("/{{function=(.*?)}}/", $this->context);
         
         $callfunction = array_map(function($values){
-            return '
-            <?php 
-            if(function_exists("'.$values.'")) {
-            echo '.$values.'();}
-            ?>';
+            return '<?php echo '.$values.';?>';
         }, $matches[1]);
 
         $this->context = str_replace($matches[0], $callfunction, $this->context);

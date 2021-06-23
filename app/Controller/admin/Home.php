@@ -3,7 +3,7 @@
 namespace App\Controller\admin;
 
 use App\core\Http\Request;
-use App\Model\Tpl;
+use  App\Model\View\Tpl;
 
 class Home{
     public function getHomeAdmin(Request $request, $args)

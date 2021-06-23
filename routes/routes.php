@@ -6,7 +6,7 @@ use App\Core\Tpl\View\Tpl;
  * Variaveis globais HTML
 */
 
-Tpl::setVars(["URL" => "http://localhost:81"]);
+Tpl::setVars(["URL" => getenv("URI_DEFAULT")]);
 
 /**
  * constante que guarda a rota padrão da pagina administrativa

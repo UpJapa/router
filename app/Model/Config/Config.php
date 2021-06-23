@@ -9,7 +9,7 @@ class Config{
 
     private $config, 
                 $dbname, $user, $password, $posts, $jsonDb,
-                    $email, $login, $passwordadmin,$name, $dashboard;
+                    $email, $login, $passwordadmin,$name, $dashboard, $uri_default;
     /**
      * MÉTODO RESPONSÁVEL POR RECEBER OS DADOS DO BANCO
      *  PARA CRIAR O JSON
@@ -35,6 +35,7 @@ class Config{
         $this->name          = $posts["name"] ?? null;
         $this->email         = $posts["email"] ?? null;
         $this->dashboard     = $posts["dashboard"] ?? 'admin';
+        $this->uri_default   = $posts["uri"] ?? 'http://127.0.0.1';
         $this->login         = $posts["login"] ?? null;
         $this->passwordadmin = password_hash($posts["passwordadmin"], PASSWORD_DEFAULT,  ['cost' => 12,]);
         $this->setUserAdmin();
@@ -102,7 +103,9 @@ class Config{
     {
         if (file_exists(__DIR__ . "/../../../.env")) {
            $env = file_get_contents(__DIR__ . "/../../../.env");
-           file_put_contents(__DIR__ . "/../../../.env", str_replace('ROUTER_DASHBOARD='.getenv('ROUTER_DASHBOARD').'', 'ROUTER_DASHBOARD='.$this->dashboard.'', $env));
+           $env = str_replace('ROUTER_DASHBOARD='.getenv('ROUTER_DASHBOARD').'', 'ROUTER_DASHBOARD='.$this->dashboard.'', $env);
+           $env = str_replace('URI_DEFAULT='.getenv('URI_DEFAULT').'', 'URI_DEFAULT='.$this->uri_default.'', $env);
+           file_put_contents(__DIR__ . "/../../../.env", $env);
         }
     }
     

@@ -14,7 +14,7 @@ class DataBase
     public function __construct()
     {
         $this->db = new ControllerDatabase();
-        $this->queryTables = __DIR__ . "/../../Core/DB/Model/sql/tables.sql";
+        $this->queryTables = __DIR__ . "/../../Core/Db/Model/sql/tables.sql";
         $this->setTable();
     }
 

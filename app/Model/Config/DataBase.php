@@ -34,11 +34,13 @@ class DataBase
      */
     private function getQuery()
     {
+        // checa se o arquivo existe
         if($this->is_file())
         {
             return file_get_contents($this->queryTables);
         }
         else{
+            // se não encontrar o arquivo, gerar um log
             throw new \Exception("Erro, query não constrada", 120);
         }
     }

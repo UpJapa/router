@@ -30,9 +30,10 @@ class Database extends DatabaseController{
         $dbname = getenv("DBNAME_MYSQL");
         $user = getenv("USER_MYSQL");
         $pass = getenv("PASS_MYSQL");
+        $port = getenv("PORT_MYSQL");
 
         // cria conexão
-        $dns = "mysql:host=$host;dbname=$dbname;";
+        $dns = "mysql:host=$host;dbname=$dbname;port=$port";
         // conecta com banco de dados
         $this->conn = new PDO($dns, $user, $pass, array('charset'=>'utf8'));
         $this->conn->query("SET CHARACTER SET utf8");

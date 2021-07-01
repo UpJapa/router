@@ -1,0 +1,168 @@
+
+	<!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+        <title>Login V1</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->	
+        <link rel="icon" type="image/png" href="/library/admin/images/icons/favicon.ico"/>
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="/library/admin/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="/library/admin/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="/library/admin/vendor/animate/animate.css">
+    <!--===============================================================================================-->	
+        <link rel="stylesheet" type="text/css" href="/library/admin/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="/library/admin/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="/library/admin/css/util.css">
+        <link rel="stylesheet" type="text/css" href="/library/admin/css/main.css">
+    <!--===============================================================================================-->
+    
+    <!--biblioteca sweetalert-->
+    <script src="/library/global/sweetalert/sweetalert.js"></script>
+    <script src="/library/global/sweetalert/sweetalert.min.js"></script>
+    
+    
+    </head>
+    <body>
+	
+    <div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-pic js-tilt" data-tilt>
+					<img src="/library/admin/images/img-01.png" alt="IMG">
+				</div>
+
+				<form class="login100-form validate-form" id="processLogin">
+					<span id="messege" class="login100-form-title">
+						Member Login
+					</span>
+
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+						<input id="login" class="input100" type="text"  placeholder="Email">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+						</span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Password is required">
+						<input id="password" class="input100" type="password" placeholder="Password">
+						<input id="token" class="input100" type="hidden" value="{$token}">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+					</div>
+					<div id="verifyCod" style="display: none;">
+					<div class="text-center p-t-5">
+						<a id="key" class="txt4 btn">
+							
+						</a>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Digite o numero acima">
+						<input id="cod" class="input100" type="text"  placeholder="verificação">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+					</div>
+					</div>
+
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn">
+							Login
+						</button>
+					</div>
+
+					<div class="text-center p-t-12">
+						<span class="txt1">
+							Forgot
+						</span>
+						<a class="txt2" onclick="forgot()">
+							Username / Password?
+						</a>
+					</div>
+
+					<div class="text-center p-t-136">
+						<a class="txt2" href="/library/admin/#">
+							Create your Account
+							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+						</a>
+					</div>
+
+                    <input type="hidden" id="ADMIN" value="{{function=ROUTER_DEFAULT}}">
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	
+
+	<script>
+		function forgot(){
+			swal({
+				text: 'Digite seu e-mail',
+				content: "input",
+				button: {
+				text: "Enviar!",
+				closeModal: false,
+				},
+			})
+			.then(name => {
+				if (!name) throw null;
+				$.ajax({
+					url: '/{{function=ROUTER_DEFAULT}}/forgot',
+					type:  'POST',
+					data: {email: name},
+					dateType: 'json',
+					cache: false
+				}).done(function(result){
+					if(result[0]){
+						 swal('Enviado!', result[1], "success");
+					}else{
+						 swal("E-mail invalido!",result[1], "error");
+					}
+					
+				})
+			})
+			.catch(err => {
+				if (err) {
+				swal("Error!", "Falha na requisição!", "error");
+				} else {
+				swal.stopLoading();
+				swal.close();
+				}
+			});
+		}
+
+		
+	
+</script>
+
+	
+<!--===============================================================================================-->	
+<script src="/library/admin/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="/library/global/processLogin.js"></script>
+<!--===============================================================================================-->
+	<script src="/library/admin/vendor/bootstrap/js/popper.js"></script>
+	<script src="/library/admin/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/library/admin/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/library/admin/vendor/tilt/tilt.jquery.min.js"></script>
+	<script >
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
+<!--===============================================================================================-->
+	<script src="/library/admin/js/main.js"></script>
+
+</body>
+</html>

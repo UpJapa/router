@@ -53,6 +53,17 @@ class Request{
     }
 
     /**
+     * Retorna 1 paramentro do post
+     *
+     * @param string $field
+     * @return void
+     */
+    public function param(string $field)
+    {
+        return $this->post[$field];
+    }
+
+    /**
      * Retorna os dados enviado via post 
      * 
      * @return array

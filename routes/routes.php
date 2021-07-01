@@ -21,7 +21,7 @@ define("ROUTER_DEFAULT", getenv("ROUTER_DASHBOARD"));
 $paths = [
     __DIR__ . '/pages/config/'   => "config.php",
     __DIR__ . '/pages/frontend/'   => "home.php",
-    __DIR__ . '/pages/admin/' => "home.php",
+    __DIR__ . '/pages/admin/' => "routers.php",
     __DIR__ . '/api/v1/' =>    "frontend.php" 
 ];
 

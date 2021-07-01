@@ -1,0 +1,19 @@
+tr.statusOff {
+    background: #1116;
+}
+
+span#deleteImage {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 25px;
+    background: #fff;
+    text-align: center;
+    border: 1px solid red;
+    border-radius: 30px;
+    margin: 0 10px 0 0;
+    cursor: pointer;
+}
+.img-thumbnail{
+    background-color:rgba(17, 17, 17, 0);
+}

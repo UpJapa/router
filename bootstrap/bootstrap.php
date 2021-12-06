@@ -6,6 +6,10 @@ use App\Core\Exception\ErrorException;
 use App\Core\Http\Exception\HttpException;
 use App\Core\Tpl\Cache\Exception\CacheException;
 
+
+// exibe noticias do php e erros
+error_reporting(~E_NOTICE);
+
 // CARREGA OS AUTOLOADS DAS CLASSES
 require_once __DIR__ . '/../vendor/autoload.php';
 

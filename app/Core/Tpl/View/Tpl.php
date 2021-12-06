@@ -32,7 +32,10 @@ class Tpl extends TplController{
     }
 
     /**
-     * método responsável por desenha o html
+     * MÉTODO RESPONSÁVEL POR DESENHA O HTML SE O PARAMENTRO FOR TRUE
+     *
+     * @param boolean $html OPCIONAL
+     * @return void
      */
     public function draw( $html = true )
     {
@@ -97,7 +100,7 @@ class Tpl extends TplController{
         if($this->cache->isCache($this->html)){
             $this->cache->writeCache($this->context);
         }
-        
+        # add as variaveis no read
         return $this->cache->read($this->vars);
     }
 

@@ -2,7 +2,6 @@
 
 namespace App\Model\Admin;
 
-use App\Admin\User;
 use App\Core\Db\Database\Database;
 use App\Model\View\Model;
 
@@ -61,11 +60,13 @@ class UserAdmin extends Model{
            return ["login" => true, "messege" => "Sucesso"];
        }
 
-       // E NÃO ENTROU EM NEM UM DESSES IF, RETORNA FALSO
-       return ["login" => false, "messege" => "Login Invalido"];
 
        // DESTROI AS VARIAVEIS DE ACESSO
        unset($userDb, $db);
+
+       // E NÃO ENTROU EM NEM UM DESSES IF, RETORNA FALSO
+       return ["login" => false, "messege" => "Login Invalido"];
+
     }
     
 }

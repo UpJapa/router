@@ -110,7 +110,7 @@ abstract class RouterController{
         
             $uri = strlen($this->request->getURI()) > 2 ? rtrim($this->request->getURI(),'/') : $this->request->getURI();
             $method = $this->request->getMethod();
-            
+           
             foreach ($this->router as $patternRouter => $http) {
                 
                 /** verifica se nas rotas contém a rota atual */

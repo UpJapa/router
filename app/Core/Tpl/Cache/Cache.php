@@ -57,16 +57,16 @@ class Cache extends CacheController{
      */
     public function read($variebles = [])
     {
-        
+        // ARMAZENA TODO CONTEÚDO EM MEMORIA SEM ESCREVE NA TELA DO NAVEGADOR
          ob_start();
-        
          // EXTRAI AS VARIAVEL
          extract($variebles);
-
-         // pega o contéudo do arquivo cache
+         // PEGA TODO CONTEÚDO DO ARQUIVO DE CACHE
          require ($this->getFile());
 
-         //@return o require
+         /**
+          * @return void Conteúdo
+          */
          return ob_get_clean();
 
     }

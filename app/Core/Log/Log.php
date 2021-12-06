@@ -3,6 +3,11 @@ namespace App\Core\Log;
 
 use App\Core\Log\LogController;
 
+
+/**
+ * @throws Log
+ * Classe de report
+ */
 class Log {
     protected $exception, $messege, $file ,$code, $folder, $line;
 

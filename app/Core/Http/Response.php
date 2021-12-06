@@ -32,9 +32,9 @@ class Response{
     private $content;
     /**
      *  Método responsável por construir as varivaveis, e incia o tipo do cabeçalho
-     * @param string $httpCode
-     * @param string $content
-     * @param string $contentType
+     * @param string $httpCode Código de resposta para o navegador
+     * @param string $content Conteúdo que será escrito na tela
+     * @param string $contentType Tipo de conteúdo Default "text/html"
      */
     public function __construct($httpCode = 200, $content, $contentType = "text/html")
     {
@@ -43,7 +43,12 @@ class Response{
         $this->setHeader("Content-Type", $contentType);
     }
 
-    
+    /**
+     * Método responsável por definir na classe o header 
+     *
+     * @param string $content
+     * @param string $type
+     */
     private function setHeader($content, $type)
     {
         $this->contentType = $type;
@@ -51,7 +56,7 @@ class Response{
     }
 
     /**
-    * Método responsável por enviar o heades para o navegador
+    * Método responsável por enviar o heades ao navegador 
     */
     private function setContentType()
     {

@@ -1,5 +1,5 @@
 # Router
-Sistema para criação de sites utilizando Urls amigaveis, Templates html, MVC
+Sistema para criação de sites utilizando Urls amigaveis, Templates html em MVC
 
 <img src="https://www.php.net/images/logos/php-logo.svg" alt="PHP Docker" width="250"/> 
 
